@@ -1,0 +1,6 @@
+{
+  "name": "Tickmark",
+  "description": "Live multi-factor trading signals, interactive consensus engine, PSX Pakistan & US blue-chip investment advisor, and portfolio compound growth simulator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
