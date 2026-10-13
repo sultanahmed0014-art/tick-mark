@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'talha.mazhar@tickmark.pro' ||
+        request.auth.token.email == 'sultanahmed0014@gmail.com' ||
+        request.auth.token.admin == true
+      );
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+
+      match /watchlist/{symbol} {
+        allow read, write: if isOwner(userId);
+      }
+      match /alerts/{alertId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    match /feedbacks/{feedbackId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    match /signals/{symbol} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /system/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

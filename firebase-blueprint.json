@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "UserProfile": {
+      "collection": "users",
+      "fields": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "avatarBadge": { "type": "string" },
+        "riskProfile": { "type": "string" },
+        "experienceLevel": { "type": "string" },
+        "targetMonthlyInvestment": { "type": "number" },
+        "currency": { "type": "string" },
+        "role": { "type": "string" }
+      }
+    },
+    "WatchlistItem": {
+      "collection": "users/{userId}/watchlist",
+      "fields": {
+        "symbol": { "type": "string" },
+        "name": { "type": "string" },
+        "market": { "type": "string" },
+        "addedAt": { "type": "number" },
+        "targetPriceAlert": { "type": "number" },
+        "userNotes": { "type": "string" }
+      }
+    },
+    "UserFeedback": {
+      "collection": "feedbacks",
+      "fields": {
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "rating": { "type": "number" },
+        "category": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "status": { "type": "string" },
+        "adminReply": { "type": "string" }
+      }
+    },
+    "SignalDoc": {
+      "collection": "signals",
+      "fields": {
+        "symbol": { "type": "string" },
+        "name": { "type": "string" },
+        "market": { "type": "string" },
+        "price": { "type": "number" },
+        "changePct": { "type": "number" },
+        "verdict": { "type": "string" },
+        "confidence": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      }
+    }
+  }
+}

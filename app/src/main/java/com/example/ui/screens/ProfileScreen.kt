@@ -24,6 +24,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AdminPanelSettings
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -67,6 +69,10 @@ fun ProfileScreen(
     onToggleSource: (String, Boolean) -> Unit,
     onToggleLiveStream: () -> Unit,
     onOpenAdminDashboard: () -> Unit = {},
+    isGoogleSignedIn: Boolean = true,
+    googleUserEmail: String? = "sultanahmed0014@gmail.com",
+    onGoogleSignIn: () -> Unit = {},
+    onGoogleSignOut: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val avatars = listOf("👑 Super Admin", "🦅 Falcon", "💎 Diamond", "⚡ Vanguard", "🚀 Rocket")
@@ -548,6 +554,97 @@ fun ProfileScreen(
                         }
                         if (index < sources.size - 1) {
                             Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f))
+                        }
+                    }
+                }
+            }
+        }
+
+        // Firebase Cloud Database & Google Authentication Card
+        item {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(18.dp),
+                color = MaterialTheme.colorScheme.surface,
+                border = androidx.compose.foundation.BorderStroke(1.dp, BinanceGold.copy(alpha = 0.5f))
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "🔥",
+                                fontSize = 18.sp
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Firebase Cloud Firestore & Auth",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                        Box(
+                            modifier = Modifier
+                                .background(SignalBuy.copy(alpha = 0.15f), RoundedCornerShape(6.dp))
+                                .padding(horizontal = 7.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = "PROVISIONED",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Black,
+                                color = SignalBuy
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Text(
+                        text = "• Database: ai-studio-android-tickmark-20f479a2-3eda-4160-8677-0c637f28ca7d\n• Cloud Project: gen-lang-client-0500116903\n• Region: asia-southeast1 (Zero-Trust Security Rules Active)",
+                        fontSize = 11.5.sp,
+                        lineHeight = 18.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                text = if (isGoogleSignedIn) "Google Account Connected" else "Google Sign-In Available",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = googleUserEmail ?: "Sign in to synchronize cloud watchlists",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+
+                        val onSurfaceCol = MaterialTheme.colorScheme.onSurface
+                        Button(
+                            onClick = { if (isGoogleSignedIn) onGoogleSignOut() else onGoogleSignIn() },
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (isGoogleSignedIn) MaterialTheme.colorScheme.surfaceVariant else BinanceGold
+                            )
+                        ) {
+                            Text(
+                                text = if (isGoogleSignedIn) "Sign Out" else "Sign In",
+                                fontSize = 11.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isGoogleSignedIn) onSurfaceCol else Color(0xFF0B0E14)
+                            )
                         }
                     }
                 }
